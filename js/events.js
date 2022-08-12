@@ -58,11 +58,8 @@ export function addEventsListenerToRangeBar(){
 
         priceField.innerText="$"+price
         products = searchProductsUntilPrice(price)
-        products.forEach(product => {
-            result = result + "(" + product.id + ")" +  product.name + " $" + product.price + "\n" + "------------------" + "\n"
-        })
-
-        alert(result)
+        
+        loadSearchResultProductsInContainer(products)  
     })
 }
 
