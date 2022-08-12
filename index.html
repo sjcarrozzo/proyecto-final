@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Malú Malú Joyería</title>
+</head>
+<body>
+    <header>
+        <span>Malú Malú Joyería</span>
+        <img src="assets/banner-desktop.jpg" alt="malú malú joyería" width="1036" height="400">
+    </header>
+    <!--barra de navegación-->
+    <nav>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Productos</a></li>
+            <li><a href="">Contacto</a></li>
+            <li><a href="account.html">Mi Cuenta</a></li>
+        </ul>
+    </nav> 
+
+
+    <!--seccion principal-->
+    <main>
+        <div id="utilities">
+            <div id="search-bar">
+                <span class="search-bar-section">Búsqueda de Productos</span>
+                <div>
+                    <input id="productNameOrId" type="text" placeholder="Ingrese producto a buscar">
+                    <button id="search-button">Buscar</button>
+                </div>
+                <div>
+                    <input class="radio-input" type="radio" id="nameProduct" name="product" value="name" checked>
+                    <label for="name">Nombre producto</label>
+
+                    <input class="radio-input" type="radio" id="codArticulo" name="product" value="id">
+                    <label for="id">Cod.Articulo</label>
+                </div>
+                <div class="range-bar">
+                    <span class="search-bar-section">Precio</span>
+                    
+                    <span>Min: $100 - Max: $4000</span>
+                    <input type="range" min="100" max="4000" value="1000" step="100" id="productPrice">
+                    <span id="price-field">$1000</span>
+                </div>
+            </div>
+            <div id="cart" class="cart">
+                <span>Agregados al Carrito</span>
+                <div class="cart-buttons">
+                    <button id="empty-cart-button">Vaciar</button>
+                </div>
+                <div id="products-cart"></div>
+                <div id="total-price"><span>Total: $0</span></div>
+            </div>
+        </div>
+        <div id="main-section">
+            <div id="search-result"></div>
+            <div id="catalogo">
+                <span class="section-title">Catálogo</span>
+                <div id="productos" class="product-container"></div>
+            </div>
+        </div>
+    </main>
+    <!--footer-->    
+    <footer>
+        <p>Malú Malú Joyería - Todos los derechos reservados</p>
+    </footer>
+    <script type="module" src="js/main-index.js"></script>
+</body>
+</html>

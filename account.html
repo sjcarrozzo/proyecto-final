@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Malú Malú Joyería</title>
+</head>
+<body>
+    <header>
+        <span>Malú Malú Joyería</span>
+        <img src="assets/banner-desktop.jpg" alt="malú malú joyería" width="1036" height="400">
+    </header>
+    <!--barra de navegación-->
+    <nav>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Productos</a></li>
+            <li><a href="">Contacto</a></li>
+            <li><a href="account.html">Mi Cuenta</a></li>
+        </ul>
+    </nav> 
+
+    <!--seccion principal-->
+    <main>
+        <div id="user-identification">
+            <div id="logged-user"></div>
+            <div id="user-login">
+                <p>Ingresar</p>
+                <label for="user-name">Usuario</label>
+                <input type="text" id="user-name" placeholder="Ingrese su usuario">
+                <label for="user-pass">Contraseña</label>
+                <input type="password" id="user-pass" placeholder="Ingrese su contraseña">
+                <button id="login-user-button">Aceptar</button>
+            </div>
+            <div id="user-create">
+                <p>¿No tienes una cuenta? Crea una</p>
+                <label for="user-name">Usuario</label>
+                <input type="text" id="create-user-name" placeholder="Ingrese su usuario">
+                <label for="user-pass">Contraseña</label>
+                <input type="password" id="create-user-pass" placeholder="Ingrese su contraseña">
+                <button id="create-user-button">Aceptar</button>
+            </div>
+        </div>
+    </main>
+    <!--footer-->    
+    <footer>
+        <p>Malú Malú Joyería - Todos los derechos reservados</p>
+    </footer>
+    <script type="module" src="js/main-account.js"></script>
+</body>
+</html>
