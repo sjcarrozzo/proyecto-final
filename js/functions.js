@@ -17,12 +17,12 @@ export function purchaseProduct(event){
     let product = searchProductById(purchasedProductId)
 
     if(product.inStock()){
-        alert("Compraste producto: " + product.name)
+        showToastNotificationWithMessage("Compraste producto: " + product.name, "top", "right")
         product.updateStock() 
         updateStockOfProductNode(product.stock, event.target.parentNode )
         
     } else{
-        alert("¡El producto seleccionado no tiene stock!")
+        showToastErrorNotificationWithMessage("¡El producto seleccionado no tiene stock!","top","right")
     }
 }
 
@@ -39,9 +39,9 @@ export function addProductToCart(event){
     product.addedToCart()
 
     if( !product.inStock() ){
-        alert("¡El producto seleccionado no tiene stock!")
+        showToastErrorNotificationWithMessage("¡El producto seleccionado no tiene stock!","top","right")
     } else if( !product.canBeAddedToCart() ){
-        alert("¡Las unidades en el carrito no pueden superar el stock del producto!")
+        showToastErrorNotificationWithMessage("¡Las unidades en el carrito no pueden superar el stock del producto!","top","right")
     } else {
 
         cartList.push(product)
@@ -50,7 +50,7 @@ export function addProductToCart(event){
         totalPriceSpan.innerText=`Total: $${getTotalPriceOfCart()}`
         totalPriceNode.innerHTML=""
         totalPriceNode.append(totalPriceSpan) 
-        alert("Agregaste al carrito " + product.name )
+        showToastNotificationWithMessage("Agregaste al carrito: " + product.name ,"top","right")
     }
 }
 
@@ -78,10 +78,9 @@ export function validateLoginUserAndPass(userName, userPass){
     let user = getUserWithNameAndPass(userName,userPass)
     
     if( user ) {
-        alert("¡Bienvenido nuevamente " + user.userName +"!") 
         return true
     }else{ 
-        alert("Usuario inexistente o contraseña inválida")
+        showToastErrorNotificationWithMessage("Usuario inexistente o contraseña inválida", "top", "right")
         return false
     }
 }
@@ -94,7 +93,7 @@ function getUserWithNameAndPass(userName, userPass){
     if( userJson && userJson.userPass == userPass ){
         console.log("Se encontró usuario")
         user = new User( userJson.userName, userJson.userPass )
-        sessionStorage.setItem("usuario", user.userName)
+        sessionStorage.setItem("logged-user", user.userName)
     }
     
     return user
@@ -126,10 +125,10 @@ function createHtmlProductNodeWithProduct(product){
         <span class="product-code">Cod.Producto: ${product.id}</span>
         <span class="product-price">$${product.price}</span>
         <span>Stock: ${product.stock}</span>
-        <img src="${product.getImgSrc()}" alt="${product.getImgAlt()}" width="${product.getImgWidth()}" heigth="${product.getImgHeigth()}">
+        <img class="product-img" src="${product.getImgSrc()}" alt="${product.getImgAlt()}" width="${product.getImgWidth()}" heigth="${product.getImgHeigth()}">
         <button class="add-to-cart-button">Agregar al carrito</button>
         <button class="purchase-button">Comprar</button>`
-                    
+
     return productNode
 }
 
@@ -143,7 +142,7 @@ export function createUser(){
         let userStringify = JSON.stringify(user)
         localStorage.setItem(userNameElement.value,userStringify)
 
-        alert("Usuario creado con éxito")
+        showToastNotificationWithMessage("¡Usuario creado con éxito!", "top", "right")
 
         userNameElement.value = ""
         userPassElement.value = ""
@@ -153,31 +152,29 @@ export function createUser(){
 function validateCreateUserAndPass(userName, userPass){
 
     if( !( userName && userPass)){
-        alert("ERROR: usuario o password se encuentra vacío")
+        showToastErrorNotificationWithMessage("ERROR: usuario o password se encuentra vacío", "top", "right")
         return false
     }
 
     if( !( userName.length >= 6 && userPass.length >= 6 )){
-        alert("ERROR: usuario o password no tiene tamaño mínimo de 6 caracteres")
+        showToastErrorNotificationWithMessage("ERROR: usuario o password no tiene tamaño mínimo de 6 caracteres", "top", "right")
         return false
     }
 
     return true
 }
 
-export function loadUser(userName){
+export function loadUser(){
 
-    let userLogged = document.getElementById("logged-user")
-    let userInfoP = document.createElement("p")
-    userInfoP.innerText=`¡Bienvenido ${userName}!`
-    userLogged.append(userInfoP)
+    showToastNotificationWithMessage("¡Conectado con éxito!", "top", "right")
+    loadUserProfile()
     
 }
 
 export function loadSearchResultProductsInContainer(products){
    
     let productsDivContainer = document.createElement("div")
-    productsDivContainer.className="product-container"
+    productsDivContainer.className="product-container products-searched-container"
     productsDivContainer.id="searched-products"
 
     let searchResult = document.getElementById("search-result")
@@ -198,12 +195,7 @@ export function loadSearchResultProductsInContainer(products){
                 productsDivContainer.append(createHtmlProductNodeWithProduct(product))
             })
         }else{
-            
-            if( Array.isArray(products)){
-                productsDivContainer.append(createHtmlProductNodeWithProduct(products[0]))
-            }else{
-                productsDivContainer.append(createHtmlProductNodeWithProduct(products))
-            }        
+            Array.isArray(products) ? productsDivContainer.append(createHtmlProductNodeWithProduct(products[0])) : productsDivContainer.append(createHtmlProductNodeWithProduct(products))
         }
 
     }else{
@@ -212,6 +204,134 @@ export function loadSearchResultProductsInContainer(products){
 
     searchResult.append(span)
     searchResult.append(productsDivContainer)
+}
+
+function showToastNotificationWithMessage(message, gravity, position){
+
+    Toastify({
+        text: message,
+        duration: 2500,
+        close: true,
+        gravity: gravity,
+        position: position,
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #1d976c, #a5cc82)",
+        },
+      }).showToast();
+}
+
+export function showToastErrorNotificationWithMessage(message, gravity, position){
+
+    Toastify({
+        text: message,
+        duration: 2500,
+        close: true,
+        gravity: gravity,
+        position: position,
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #ed213a, #93291e)",
+        },
+      }).showToast();
+}
+
+function showConfirmationModalWindowWithMessage(title, text, confirmBtnText, confirmFunction, successText){
+
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#52c234',
+        cancelButtonColor: '#d33',
+        confirmButtonText: confirmBtnText
+      }).then((result) => {
+        if (result.isConfirmed) {
+            confirmFunction()
+            Swal.fire({
+                title: successText,
+                icon: 'success',
+                confirmButtonColor: '#52c234'
+            })
+        }
+      })
+}
+
+export function emptyCart(){
+
+    let title = "¿Desea eliminar su carrito?"
+    let confirmBtnText = "Sí, eliminar"
+    let successText = "Carrito eliminado!"
+
+    showConfirmationModalWindowWithMessage(title, "", confirmBtnText, actionsToEmptyCart, successText)
+}
+
+function actionsToEmptyCart(){
+    let productsCart = document.getElementById("products-cart")
+    let totalPriceNode=document.getElementById("total-price")
+    productsCart.innerHTML=""
+      
+    for (let index = 0; index < cartList.length; index++){
+        cartList.pop().resetUnitsInCart()
+    }        
+                
+    totalPriceNode.innerHTML=`<span>Total: $0</span>`
+}
+
+export function loadUserProfile(){
+    let userLoggedName = sessionStorage.getItem("logged-user")
+
+    if(userLoggedName){
+        let userContainer = document.getElementById("logged-user-name")
+        let span = document.createElement("span")
+        let button = document.createElement("button")
+        
+        span.innerText = `${userLoggedName}`
+        button.innerText = `Salir de Cuenta`
+        button.id = "logout-button"
+
+        userContainer.append(span)
+        userContainer.append(button)
+        
+        addEventListenerToLogOutButton()
+    }
+}
+
+function addEventListenerToLogOutButton(){
+    let button = document.getElementById("logout-button")
+    
+    button.addEventListener("click", logOutUser)
+}
+
+function logOutUser(){
+
+    showConfirmationModalWindowWithMessage("¿Desea desconectarse de su cuenta?","", "Sí, desconectarme", actionsToLogOutUser,"Desconectado")
+}
+
+function actionsToLogOutUser(){
+    let userContainer = document.getElementById("logged-user-name")
+    
+    userContainer.innerHTML = ""
+    sessionStorage.removeItem("logged-user")
+
+}
+
+export function showModalWindowWithImg(event){
+
+    Swal.fire({
+        imageUrl: `${event.target.src}`,
+        imageHeight: 500,
+        imageAlt: `${event.target.alt}`,
+        confirmButtonColor: '#52c234'
+      })
+}
+
+export function loadMinMaxProductsPrice(){
+    let span = document.getElementById("min-max-price")
+    let pricesArray = products.map( product => product.price)
+
+    span.innerText = `Min: $${Math.min(... pricesArray)} - Max: $${Math.max(... pricesArray)}`
 }
 
 console.log("functions.js loaded")

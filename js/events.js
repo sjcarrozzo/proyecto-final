@@ -1,8 +1,6 @@
-import {cartList} from './vars.js'
 import {purchaseProduct, searchProductsByName, searchProductById, 
-    searchProductsUntilPrice, validateLoginUserAndPass, getTotalPriceOfCart, addProductToCart, 
-    createUser, loadUser, loadSearchResultProductsInContainer} from './functions.js'
-
+    searchProductsUntilPrice, validateLoginUserAndPass, addProductToCart, 
+    createUser, loadUser, loadSearchResultProductsInContainer, emptyCart, showToastErrorNotificationWithMessage, showModalWindowWithImg} from './functions.js'
 
 export function addEventsListenersToPurchaseButtons(){
     let buttons = document.getElementsByClassName("purchase-button")
@@ -42,7 +40,7 @@ export function addEventsListenerToSearchButton(){
             loadSearchResultProductsInContainer(products)
         
         }else{
-            alert("Debe ingresar un nombre o id de producto!")
+            showToastErrorNotificationWithMessage("Debe ingresar un nombre o id de producto!", "top", "right")
         }
     })
 }
@@ -75,20 +73,7 @@ export function addEventsListenersToAddToCartButtons(){
 export function addEventListenerToEmptyCartButton(){
     
     let emptyCartButton = document.getElementById("empty-cart-button")
-    emptyCartButton.addEventListener("click",()=>{
-        
-        
-      let productsCart = document.getElementById("products-cart")
-      let totalPriceNode=document.getElementById("total-price")
-      productsCart.innerHTML=""
-      
-        for (let index = 0; index < cartList.length; index++){
-            cartList.pop().resetUnitsInCart()
-        }        
-                
-        totalPriceNode.innerHTML=`<span>Total: $0</span>`
-        alert("Se vació el carrito")
-    })
+    emptyCartButton.addEventListener("click", emptyCart)
 
 }
 
@@ -111,6 +96,14 @@ export function addEventListenerToCreateUserButton(){
 
     let createUserButton = document.getElementById("create-user-button")
     createUserButton.addEventListener("click", createUser)
+}
+
+export function addEventListenerToImgProducts(){
+    let productsImgs = document.getElementsByClassName("product-img")
+
+    for (const img of productsImgs){
+        img.addEventListener("click", showModalWindowWithImg)
+    }
 }
 
 console.log("events.js loaded")

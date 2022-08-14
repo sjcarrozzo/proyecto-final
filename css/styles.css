@@ -73,7 +73,7 @@ body{
     align-items: center;
     text-align: center;
     width: 25%;
-    height: 380px;
+    height: 400px;
     background-color: rgb(65, 69, 65);
     color: white;
     margin: 10px;
@@ -244,4 +244,20 @@ input{
 #main-section{
     display: flex;
     flex-direction: column;
+}
+.products-searched-container{
+    background: linear-gradient(to bottom, #ffefba, #ffffff);
+}
+#logged-user-name{
+    background-color: rgb(71, 69, 69);
+    color:rgb(194, 161, 76);
+    font-size: 25px;
+    display: inline-block;
+    font-style: italic;
+}
+#logged-user-name > span{
+    margin: 15px;
+}
+.product-img{
+    margin: 10px 0px;
 }

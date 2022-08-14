@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Malú Malú Joyería</title>
 </head>
@@ -20,6 +21,7 @@
             <li><a href="">Contacto</a></li>
             <li><a href="account.html">Mi Cuenta</a></li>
         </ul>
+        <div id="logged-user-name"></div>
     </nav> 
 
 
@@ -41,8 +43,7 @@
                 </div>
                 <div class="range-bar">
                     <span class="search-bar-section">Precio</span>
-                    
-                    <span>Min: $100 - Max: $4000</span>
+                    <span id="min-max-price"></span>
                     <input type="range" min="100" max="4000" value="1000" step="100" id="productPrice">
                     <span id="price-field">$1000</span>
                 </div>
@@ -68,6 +69,8 @@
     <footer>
         <p>Malú Malú Joyería - Todos los derechos reservados</p>
     </footer>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script type="module" src="js/main-index.js"></script>
 </body>
 </html>
