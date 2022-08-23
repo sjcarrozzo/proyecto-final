@@ -4,5 +4,3 @@ import {addEventListenerToLoginButton, addEventListenerToCreateUserButton} from 
 addEventListenerToLoginButton()
 addEventListenerToCreateUserButton()
 loadUserProfile()
-
-console.log("main-account.js loaded")

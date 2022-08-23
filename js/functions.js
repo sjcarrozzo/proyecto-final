@@ -1,17 +1,33 @@
 import {cartList, products} from './vars.js'
 import {Product, ProductImage, User} from './classes.js'
+import {addEventsListenersToPurchaseButtons, addEventsListenersToAddToCartButtons, addEventListenerToImgProducts} from './events.js'
 
+export function loadProductsFromFile(){
 
-export function loadProducts(products){
+    fetch("./js/products.json")
+        .then((response) => response.json())
+        .then((data) => {
+            data.forEach( jsonProduct => {
+                products.push( new Product( jsonProduct.code, jsonProduct.description, jsonProduct.price, jsonProduct.stock, new ProductImage(jsonProduct.image.src, jsonProduct.image.alt, jsonProduct.image.width, jsonProduct.image.heigth)))
+            })
+            
+            loadProductsInDOM()
+            loadMinMaxProductsPrice()
+            addEventsListenersToPurchaseButtons()
+            addEventsListenersToAddToCartButtons()
+            addEventListenerToImgProducts()
+        })         
+}
+
+function loadProductsInDOM(){
     let productsContainer = document.getElementById("productos")
 
     products.forEach( product =>{
-       if(product.inStock()){
-            productsContainer.append(createHtmlProductNodeWithProduct(product))
-        }
-    })
+        if(product.inStock()){
+             productsContainer.append(createHtmlProductNodeWithProduct(product))
+         }
+     })
 }
-
 export function purchaseProduct(event){
     let purchasedProductId = event.target.parentNode.id
     let product = searchProductById(purchasedProductId)
@@ -43,11 +59,11 @@ export function addProductToCart(event){
     } else if( !product.canBeAddedToCart() ){
         showToastErrorNotificationWithMessage("¡Las unidades en el carrito no pueden superar el stock del producto!","top","right")
     } else {
-
         cartList.push(product)
         cart.append(createHtmlProductNodeWithProductForCart(product))
         let totalPriceSpan = document.createElement("span")
         totalPriceSpan.innerText=`Total: $${getTotalPriceOfCart()}`
+        totalPriceSpan.classList.add("w-100","d-block","total-price")
         totalPriceNode.innerHTML=""
         totalPriceNode.append(totalPriceSpan) 
         showToastNotificationWithMessage("Agregaste al carrito: " + product.name ,"top","right")
@@ -66,6 +82,7 @@ function createHtmlProductNodeWithProductForCart(product){
 
     productNode.className="product-cart"
     productNode.id="product-${product.id}"
+    productNode.setAttribute("style","border-bottom: 1px solid gold;")
     productNode.innerHTML=`
         <img src="${product.getImgSrc()}" alt="${product.getImgAlt()}" width="30" heigth="30">    
         <span>1 - ${product.name} - $${product.price}</span>`
@@ -218,7 +235,7 @@ function showToastNotificationWithMessage(message, gravity, position){
         style: {
             background: "linear-gradient(to right, #1d976c, #a5cc82)",
         },
-      }).showToast();
+      }).showToast()
 }
 
 export function showToastErrorNotificationWithMessage(message, gravity, position){
@@ -233,7 +250,7 @@ export function showToastErrorNotificationWithMessage(message, gravity, position
         style: {
             background: "linear-gradient(to right, #ed213a, #93291e)",
         },
-      }).showToast();
+      }).showToast()
 }
 
 function showConfirmationModalWindowWithMessage(title, text, confirmBtnText, confirmFunction, successText){
@@ -260,11 +277,15 @@ function showConfirmationModalWindowWithMessage(title, text, confirmBtnText, con
 
 export function emptyCart(){
 
-    let title = "¿Desea eliminar su carrito?"
-    let confirmBtnText = "Sí, eliminar"
-    let successText = "Carrito eliminado!"
+    if(cartList.length != 0 ){
+        let title = "¿Desea eliminar su carrito?"
+        let confirmBtnText = "Sí, eliminar"
+        let successText = "Carrito eliminado!"
 
-    showConfirmationModalWindowWithMessage(title, "", confirmBtnText, actionsToEmptyCart, successText)
+        showConfirmationModalWindowWithMessage(title, "", confirmBtnText, actionsToEmptyCart, successText)
+    }else{
+        showToastNotificationWithMessage("No hay productos a eliminar!", "top", "right")
+    }
 }
 
 function actionsToEmptyCart(){
@@ -276,7 +297,7 @@ function actionsToEmptyCart(){
         cartList.pop().resetUnitsInCart()
     }        
                 
-    totalPriceNode.innerHTML=`<span>Total: $0</span>`
+    totalPriceNode.innerHTML=`<span class="total-price">Total: $0</span>`
 }
 
 export function loadUserProfile(){
@@ -330,8 +351,12 @@ export function showModalWindowWithImg(event){
 export function loadMinMaxProductsPrice(){
     let span = document.getElementById("min-max-price")
     let pricesArray = products.map( product => product.price)
+    let input = document.getElementById("productPrice")
 
-    span.innerText = `Min: $${Math.min(... pricesArray)} - Max: $${Math.max(... pricesArray)}`
+    let min = Math.min(... pricesArray)
+    let max = Math.max(... pricesArray)
+
+    span.innerText = `Min: $${min-100} - Max: $${max+100}`
+    input.min = `${min-100}`
+    input.max = `${max+100}`
 }
-
-console.log("functions.js loaded")

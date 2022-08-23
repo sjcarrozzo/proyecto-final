@@ -15,7 +15,6 @@ export function addEventsListenerToSearchButton(){
     searchButton.addEventListener("click", ()=>{
         let radioButtons = document.getElementsByClassName("radio-input")
         let nameOrId = document.getElementById("productNameOrId")
-        let radioButton = document.getElementsByClassName("radio-input")
         let searchProductBy
         let products
 
@@ -52,7 +51,6 @@ export function addEventsListenerToRangeBar(){
         let price = event.target.value
         let priceField = document.getElementById("price-field")
         let products
-        let result = "Productos con precio hasta $" + price + ":" + "\n\n"
 
         priceField.innerText="$"+price
         products = searchProductsUntilPrice(price)
@@ -105,5 +103,3 @@ export function addEventListenerToImgProducts(){
         img.addEventListener("click", showModalWindowWithImg)
     }
 }
-
-console.log("events.js loaded")

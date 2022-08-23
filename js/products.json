@@ -1,0 +1,154 @@
+[
+    {   
+        "code": 1000, 
+        "description": "Anillo de Oro con Piedra Verde", 
+        "price": 2500, 
+        "stock": 3, 
+        "image": { 
+            "src": "assets/anillo-oro-piedra-verde-malu-malu.webp", 
+            "alt": "anillo de oro con piedra verde", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 2500, 
+        "description": "Anillo de Oro y Plata", 
+        "price": 1800, 
+        "stock": 1,     
+        "image": { 
+            "src": "assets/anillo-oro-plata-malu-malu.webp", 
+            "alt": "anillo de oro y plata", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 3111, 
+        "description": "Cadenita de Oro con Anillos", 
+        "price": 2000, 
+        "stock": 10,    
+        "image": { 
+            "src": "assets/collar-anillos-malu-malu.webp", 
+            "alt": "cadenita de oro con anillos", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 4444, 
+        "description": "Pulsera de Oro", 
+        "price": 930, 
+        "stock": 15,
+        "image": { 
+            "src": "assets/pulsera-oro-malu-malu.webp", 
+            "alt": "pulsera de oro", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 200, 
+        "description": "Aros con Piedras Negros", 
+        "price": 1800, 
+        "stock": 20,
+        "image": { 
+            "src": "assets/aros-negros-malu-malu.webp", 
+            "alt": "aros negros piedras", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 150, 
+        "description": "Aros de Oro Rosa", 
+        "price": 5000, 
+        "stock": 1,
+        "image": { 
+            "src": "assets/aros-oro-rosa-diamantes-malu-malu.webp", 
+            "alt": "aros rosa", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 1320, 
+        "description": "Pulsera Plata Cisnes", 
+        "price": 1000, 
+        "stock": 14,
+        "image": { 
+            "src": "assets/pulsera-plata-cisnes-malu-malu.webp", 
+            "alt": "pulsera plata cisnes", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 8999, 
+        "description": "Pulsera Plata Corazon", 
+        "price": 7000, 
+        "stock": 22,
+        "image": { 
+            "src": "assets/pulsera-plata-corazon-malu-malu.webp", 
+            "alt": "pulsera plata corazon", 
+            "width": 180, 
+            "heigth": 180
+        }
+    },
+    { 
+        "code": 13500, 
+        "description": "Pulsera Plata Oro Corazon", 
+        "price": 4500, 
+        "stock": 5,
+        "image": { 
+            "src": "assets/pulsera-plata-oro-corazon-malu-malu.webp", 
+            "alt": "pulsera plata oro corazon", 
+            "width": 180, 
+            "heigth": 180
+        }
+    }
+
+    ,
+    { 
+        "code": 14500, 
+        "description": "Collar Cisne", 
+        "price": 6500, 
+        "stock": 5,
+        "image": { 
+            "src": "assets/collar-cisne-malu-malu.webp", 
+            "alt": "collar cisne", 
+            "width": 180, 
+            "heigth": 180
+        }
+    }
+    ,
+    { 
+        "code": 14501, 
+        "description": "Collar Oro Corazon", 
+        "price": 3000, 
+        "stock": 8,
+        "image": { 
+            "src": "assets/collar-oro-corazon-malu-malu.webp", 
+            "alt": "collar oro corazon", 
+            "width": 180, 
+            "heigth": 180
+        }
+    }
+    ,
+    { 
+        "code": 14502, 
+        "description": "Collar Plata Violeta", 
+        "price": 10500, 
+        "stock": 4,
+        "image": { 
+            "src": "assets/collar-plata-violeta-malu-malu.webp", 
+            "alt": "collar plata violeta", 
+            "width": 180, 
+            "heigth": 180
+        }
+    }
+]
+
+
+
+

@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <span>Malú Malú Joyería</span>
+        <span class="brand" >Malú Malú Joyería</span>
         <img src="assets/banner-desktop.jpg" alt="malú malú joyería" width="1036" height="400">
     </header>
     <!--barra de navegación-->
@@ -23,8 +23,6 @@
         </ul>
         <div id="logged-user-name"></div>
     </nav> 
-
-
     <!--seccion principal-->
     <main>
         <div id="utilities">
@@ -44,23 +42,23 @@
                 <div class="range-bar">
                     <span class="search-bar-section">Precio</span>
                     <span id="min-max-price"></span>
-                    <input type="range" min="100" max="4000" value="1000" step="100" id="productPrice">
+                    <input type="range" step="100" id="productPrice" value="2500">
                     <span id="price-field">$1000</span>
                 </div>
             </div>
-            <div id="cart" class="cart">
-                <span>Agregados al Carrito</span>
+            <div id="cart" class="cart">  
                 <div class="cart-buttons">
+                    <span>Carrito</span>
                     <button id="empty-cart-button">Vaciar</button>
                 </div>
                 <div id="products-cart"></div>
-                <div id="total-price"><span>Total: $0</span></div>
+                <div id="total-price"><span class="total-price">Total: $0</span></div>
             </div>
         </div>
         <div id="main-section">
             <div id="search-result"></div>
             <div id="catalogo">
-                <span class="section-title">Catálogo</span>
+                <p class="section-title">Catálogo</p>
                 <div id="productos" class="product-container"></div>
             </div>
         </div>

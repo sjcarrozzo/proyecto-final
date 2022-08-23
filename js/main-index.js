@@ -1,16 +1,9 @@
-import {products} from './vars.js'
-import {loadProducts, loadUserProfile,loadMinMaxProductsPrice} from './functions.js'
-import {addEventsListenersToPurchaseButtons, addEventsListenerToSearchButton, addEventsListenerToRangeBar, addEventsListenersToAddToCartButtons, addEventListenerToEmptyCartButton,
-    addEventListenerToImgProducts} from './events.js'
+import {loadProductsFromFile, loadUserProfile} from './functions.js'
+import {addEventsListenerToSearchButton, addEventsListenerToRangeBar, addEventListenerToEmptyCartButton} from './events.js'
 
-loadProducts(products)
-addEventsListenersToPurchaseButtons()
+loadProductsFromFile()
 addEventsListenerToSearchButton()
 addEventsListenerToRangeBar()
-addEventsListenersToAddToCartButtons()
 addEventListenerToEmptyCartButton()
 loadUserProfile()
-addEventListenerToImgProducts()
-loadMinMaxProductsPrice()
 
-console.log("main-index.js loaded")

@@ -76,5 +76,3 @@ export class User{
         this.userPass = userPass
     }
 }
-
-console.log("classes.js loaded")
