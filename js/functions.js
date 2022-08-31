@@ -225,6 +225,11 @@ export function loadSearchResultProductsInContainer(products){
 
     searchResult.append(span)
     searchResult.append(productsDivContainer)
+
+
+    addEventsListenersToPurchaseButtons()
+    addEventsListenersToAddToCartButtons()
+
 }
 
 function showToastNotificationWithMessage(message, gravity, position){
