@@ -52,6 +52,8 @@ export function addProductToCart(event){
     let product = searchProductById(addedToCartProductId)
     let cart = document.getElementById("products-cart")
     let totalPriceNode=document.getElementById("total-price")
+    
+
     product.addedToCart()
 
     if( !product.inStock() ){
@@ -62,6 +64,9 @@ export function addProductToCart(event){
         cartList.push(product)
         cart.append(createHtmlProductNodeWithProductForCart(product))
         let totalPriceSpan = document.createElement("span")
+        document.getElementById("purchase-cart-button").className="active"
+        document.getElementById("empty-cart-button").className="active"
+
         totalPriceSpan.innerText=`Total: $${getTotalPriceOfCart()}`
         totalPriceSpan.classList.add("w-100","d-block","total-price")
         totalPriceNode.innerHTML=""
@@ -108,7 +113,6 @@ function getUserWithNameAndPass(userName, userPass){
     let user
 
     if( userJson && userJson.userPass == userPass ){
-        console.log("Se encontró usuario")
         user = new User( userJson.userName, userJson.userPass )
         sessionStorage.setItem("logged-user", user.userName)
     }
@@ -144,7 +148,7 @@ function createHtmlProductNodeWithProduct(product){
         <span>Stock: ${product.stock}</span>
         <img class="product-img" src="${product.getImgSrc()}" alt="${product.getImgAlt()}" width="${product.getImgWidth()}" heigth="${product.getImgHeigth()}">
         <button class="add-to-cart-button">Agregar al carrito</button>
-        <button class="purchase-button">Comprar</button>`
+        <button class="purchase-button">Comprar Ahora</button>`
 
     return productNode
 }
@@ -204,7 +208,7 @@ export function loadSearchResultProductsInContainer(products){
     span.className="section-title-search-result"
    
     if( products.length != 0 ){
-        span.innerText = "Resultados de Búsqueda:"
+        span.innerText = "Resultados de Búsqueda"
         
         if( products.length > 1){
             
@@ -296,7 +300,47 @@ function actionsToEmptyCart(){
     for (let index = 0; index < cartList.length; index++){
         cartList.pop().resetUnitsInCart()
     }        
-                
+    
+    document.getElementById("purchase-cart-button").className="deactivate"
+    document.getElementById("empty-cart-button").className="deactivate"
+
+    totalPriceNode.innerHTML=`<span class="total-price">Total: $0</span>`
+}
+
+export function purchaseCart(){
+
+    if(cartList.length != 0 ){
+        let totalPrice = document.getElementById("total-price").innerText
+        let title = `
+            ¿Desea comprar los productos de su carrito?
+            ${totalPrice}
+        `
+        let confirmBtnText = "Sí, comprar"
+        let successText = "Gracias por su compra!"
+        
+        showConfirmationModalWindowWithMessage(title, "", confirmBtnText, actionsToPurchaseCart, successText)
+    }else{
+        showToastNotificationWithMessage("No hay productos para comprar!", "top", "right")
+    }
+}
+
+function actionsToPurchaseCart(){
+    let productsCart = document.getElementById("products-cart")
+    let totalPriceNode=document.getElementById("total-price")
+
+    while( cartList.length > 0 ){
+        let product = cartList.pop()
+        let productNode = document.getElementById(product.id)
+        product.discountUnitsInCart()
+        product.resetUnitsInCart()
+        updateStockOfProductNode(product.stock, productNode)    
+    }        
+    
+    productsCart.innerHTML=""
+
+    document.getElementById("purchase-cart-button").className="deactivate"
+    document.getElementById("empty-cart-button").className="deactivate"
+
     totalPriceNode.innerHTML=`<span class="total-price">Total: $0</span>`
 }
 
@@ -305,15 +349,17 @@ export function loadUserProfile(){
 
     if(userLoggedName){
         let userContainer = document.getElementById("logged-user-name")
-        let span = document.createElement("span")
         let button = document.createElement("button")
         
-        span.innerText = `${userLoggedName}`
         button.innerText = `Salir de Cuenta`
         button.id = "logout-button"
 
-        userContainer.append(span)
-        userContainer.append(button)
+        userContainer.innerHTML=`
+            <span class="user-ico"></span>    
+            <span class="user-name">${userLoggedName}</span>
+            <button id="logout-button">Salir de Cuenta</button>
+        `
+        userContainer.className="active"
         
         addEventListenerToLogOutButton()
     }
@@ -332,10 +378,9 @@ function logOutUser(){
 
 function actionsToLogOutUser(){
     let userContainer = document.getElementById("logged-user-name")
-    
-    userContainer.innerHTML = ""
-    sessionStorage.removeItem("logged-user")
+    userContainer.className="deactivate"
 
+    sessionStorage.removeItem("logged-user")
 }
 
 export function showModalWindowWithImg(event){

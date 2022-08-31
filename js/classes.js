@@ -29,17 +29,18 @@ export class Product{
         this.stock--
 
         if( !this.inStock() ){
-            console.log("Se agotó el stock del producto: " + this.name )
             let productElement = document.getElementById(this.id)
             productElement.className = productElement.className + " out-of-stock"
         }
     }
 
-    showPriceInNumberOfPayments(number){
-
-        let dividedPrice = this.price / number
-
-        console.log( number + " cuotas de $" + dividedPrice )
+    discountUnitsInCart(){
+        this.stock-= this.unitsAddedInCart 
+        
+        if( !this.inStock() ){
+            let productElement = document.getElementById(this.id)
+            productElement.className = productElement.className + " out-of-stock"
+        }
     }
 
     getImgSrc(){

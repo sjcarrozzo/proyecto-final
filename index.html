@@ -17,42 +17,43 @@
     <nav>
         <ul class="navbar">
             <li><a href="index.html">Home</a></li>
-            <li><a href="">Productos</a></li>
-            <li><a href="">Contacto</a></li>
             <li><a href="account.html">Mi Cuenta</a></li>
         </ul>
-        <div id="logged-user-name"></div>
     </nav> 
     <!--seccion principal-->
     <main>
-        <div id="utilities">
-            <div id="search-bar">
-                <span class="search-bar-section">Búsqueda de Productos</span>
-                <div>
-                    <input id="productNameOrId" type="text" placeholder="Ingrese producto a buscar">
-                    <button id="search-button">Buscar</button>
-                </div>
-                <div>
-                    <input class="radio-input" type="radio" id="nameProduct" name="product" value="name" checked>
-                    <label for="name">Nombre producto</label>
+        <div id="utilities-container">
+            <div id="utilities">
+                <div id="logged-user-name" class="deactivate"></div>
+                <div id="search-bar">
+                    <span class="search-bar-section">Búsqueda de Productos</span>
+                    <div>
+                        <input id="productNameOrId" type="text" placeholder="Ingrese producto a buscar">
+                        <button id="search-button">Buscar</button>
+                    </div>
+                    <div>
+                        <input class="radio-input" type="radio" id="nameProduct" name="product" value="name" checked>
+                        <label for="name">Nombre producto</label>
 
-                    <input class="radio-input" type="radio" id="codArticulo" name="product" value="id">
-                    <label for="id">Cod.Articulo</label>
+                        <input class="radio-input" type="radio" id="codArticulo" name="product" value="id">
+                        <label for="id">Cod.Articulo</label>
+                    </div>
+                    <div class="range-bar">
+                        <span class="search-bar-section">Precio</span>
+                        <span id="min-max-price"></span>
+                        <input type="range" step="100" id="productPrice" value="2500">
+                        <span id="price-field">$1000</span>
+                    </div>
                 </div>
-                <div class="range-bar">
-                    <span class="search-bar-section">Precio</span>
-                    <span id="min-max-price"></span>
-                    <input type="range" step="100" id="productPrice" value="2500">
-                    <span id="price-field">$1000</span>
+                <div id="cart" class="cart">  
+                    <div class="cart-buttons">
+                        <span>Carrito</span>
+                        <button id="purchase-cart-button" class="deactivate">Comprar</button>
+                        <button id="empty-cart-button" class="deactivate">Vaciar</button>
+                    </div>
+                    <div id="products-cart"></div>
+                    <div id="total-price"><span class="total-price">Total: $0</span></div>
                 </div>
-            </div>
-            <div id="cart" class="cart">  
-                <div class="cart-buttons">
-                    <span>Carrito</span>
-                    <button id="empty-cart-button">Vaciar</button>
-                </div>
-                <div id="products-cart"></div>
-                <div id="total-price"><span class="total-price">Total: $0</span></div>
             </div>
         </div>
         <div id="main-section">

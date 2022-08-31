@@ -1,6 +1,6 @@
 import {purchaseProduct, searchProductsByName, searchProductById, 
     searchProductsUntilPrice, validateLoginUserAndPass, addProductToCart, 
-    createUser, loadUser, loadSearchResultProductsInContainer, emptyCart, showToastErrorNotificationWithMessage, showModalWindowWithImg} from './functions.js'
+    createUser, loadUser, loadSearchResultProductsInContainer, emptyCart, showToastErrorNotificationWithMessage, showModalWindowWithImg, purchaseCart} from './functions.js'
 
 export function addEventsListenersToPurchaseButtons(){
     let buttons = document.getElementsByClassName("purchase-button")
@@ -72,7 +72,12 @@ export function addEventListenerToEmptyCartButton(){
     
     let emptyCartButton = document.getElementById("empty-cart-button")
     emptyCartButton.addEventListener("click", emptyCart)
+}
 
+export function addEventListenerToPurchaseCartButton(){
+    
+    let purchaseCartButton = document.getElementById("purchase-cart-button")
+    purchaseCartButton.addEventListener("click", purchaseCart)
 }
 
 export function addEventListenerToLoginButton(){

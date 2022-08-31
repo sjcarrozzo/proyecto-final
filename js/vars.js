@@ -1,2 +1,2 @@
 export const products = []
-export let cartList = []
+export const cartList = []
